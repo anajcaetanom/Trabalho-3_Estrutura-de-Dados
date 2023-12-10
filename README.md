@@ -1,4 +1,4 @@
-# Trabalho-3_Estrutura-de-Dados
+# Trabalho 3 - Estrutura de Dados - 2023/2
 Este é um projeto que implementa o logging no projeto anterior (tp2).
 
 ## O projeto é organizado em diferentes arquivos:
