@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
 
 
 
@@ -355,7 +354,7 @@ int tempo_laudo(Tempos *array, int index) {
 
 struct _logEvent {
     char message[256];
-    time_t timestamp;
+    int timestamp;
 };
 
 struct _log {
@@ -366,27 +365,24 @@ struct _log {
 // Função para a criação de uma struct log.
 Log *create_log() {
     Log *log = (Log*) calloc(1, sizeof(Log));
-    if (log != NULL) {
-        log->count = 0;
-    }
+    if (log != NULL) log->count = 0;
+
     return log;
 }
 
 // Função para a criação de um evento log.
-void log_event(Log *log, const char *message) {
+void log_event(Log *log, const char *message, const int tempo) {
     if (log != NULL) {
         LogEvent *new_event = (LogEvent*)calloc(1, sizeof(LogEvent));
         strcpy(new_event->message, message);
         new_event->message[sizeof(new_event->message) - 1] = '\0'; // Garante a terminação nula
-        new_event->timestamp = time(NULL);
+        new_event->timestamp = tempo;
 
         log->events[log->count++] = *new_event;
 
         free(new_event);
     }
-    else {
-        fprintf(stderr, "Erro na alocação de memória para LogEvent.\n");
-    }
+    else fprintf(stderr, "Erro na alocação de memória para LogEvent.\n");
 }
 
 // Função para a criação/escritura do arquivo log.
@@ -394,14 +390,10 @@ void save_log_to_file(const Log *log, const char *filename) {
     if (log != NULL) {
         FILE *file = fopen(filename, "w");
         if (file != NULL) {
-            fprintf(file, "Timestamp\tMessage\n");
-            for (int i = 0; i < log->count; ++i) {
-                fprintf(file, "%s\t%s\n", ctime(&log->events[i].timestamp), log->events[i].message);
-            }
+            fprintf(file, "Timestamp\t\tMessage\n");
+            for (int i = 0; i < log->count; ++i) fprintf(file, "%d\t\t\t%s\n", log->events[i].timestamp, log->events[i].message);
             fclose(file);
-        } else {
-            perror("Error opening file");
-        }
+        } else perror("Error opening file");
     }
 }
 

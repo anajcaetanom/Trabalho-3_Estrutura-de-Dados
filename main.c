@@ -33,19 +33,17 @@ int main() {
 
         } while (!(r <= 2)); // Probabilidade de 20% de chegar um paciente. 
 
-        log_event(log, "Chegada de novo paciente.\n");
+        log_event(log, "Chegada de novo paciente.\n", uT);
 
         id++;
         Paciente *paciente = novo_paciente(nome, cpf, idade, id); // Criação de paciente.
         add_no_inicio(lista_de_pacientes, paciente); // Inserção do paciente na lista de pacientes.
-        log_event(log, "Novo paciente inserido na 'Lista de Pacientes'.\n");
+        log_event(log, "Novo paciente inserido na 'Lista de Pacientes'.\n", uT);
 
         enfileirar_id(fila_para_exame, id); // Inserção do id na fila para exame.
-        log_event(log, "ID inserido na 'Fila para Exame'.\n");
+        log_event(log, "ID inserido na 'Fila para Exame'.\n", uT);
 
-        qtd++;
-
-        
+        qtd++;   
     }
 
     fclose(arquivo); // Fechar arquivo.
@@ -68,7 +66,7 @@ int main() {
 
                 for (int j = 0; j <= tempo_de_exame; j++) uT++;
 
-                log_event(log, "Exame de raio-x realizado.\n");
+                log_event(log, "Exame de raio-x realizado.\n", uT);
 
                 tempo = uT + tempo_de_exame;
 
@@ -78,7 +76,7 @@ int main() {
 
                 enfileirar_registro(fila_para_laudo, registro); // Adiciona registro na fila para laudo.
 
-                log_event(log, "Registro inserido na 'Fila para Laudo'.\n");
+                log_event(log, "Registro inserido na 'Fila para Laudo'.\n", uT);
 
                 if (empty_array_index(array_tempos, qtd) == -1) {
                     printf("Nenhuma struct vazia. Realização do exame de raio x.\n");
@@ -126,7 +124,7 @@ int main() {
 
                 for (int j = 0; j <= tempo_de_exame; j++) uT++; // Preparação do laudo.
 
-                log_event(log, "Laudo realizado.\n");
+                log_event(log, "Laudo realizado.\n", uT);
 
                 change_occupation(radiologista, i, 0); // Muda ocupação para "0" (livre).
 

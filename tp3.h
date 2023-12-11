@@ -1,7 +1,6 @@
 #ifndef TP3_H
 #define TP3_H
 
-
 typedef struct _paciente Paciente;
 typedef struct _node Node;
 typedef struct _list Lista;
@@ -112,7 +111,7 @@ void free_fila(Fila *F);
 Log *create_log();
 
 // Função para a criação de um evento log.
-void log_event(Log *log, const char *message);
+void log_event(Log* log, const char* message, const int tempo);
 
 // Função para a criação/escritura do arquivo log.
 void save_log_to_file(const Log *log, const char *filename);
